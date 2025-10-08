@@ -1,24 +1,24 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Ryan Musgrove — Portfolio</title>
-        <meta name="description"
-            content="Projects, resume, and contact info for Ryan Musgrove." />
-        <link rel="icon" href="assets/favicon.jfif" />
+  <head>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ryan Musgrove — Portfolio</title>
+    <meta name="description"
+      content="Projects, resume, and contact info for Ryan Musgrove." />
+    <link rel="icon" href="assets/favicon.jfif" />
 
-        <!-- Open Graph for link previews -->
-        <meta property="og:title" content="Ryan Musgrove — Portfolio" />
-        <meta property="og:description"
-            content="Projects, resume, and contact info." />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="assets/og-image.jpg" />
-        <meta property="og:url" content="https://ryan4396.github.io/" />
+    <!-- Open Graph for link previews -->
+    <meta property="og:title" content="Ryan Musgrove — Portfolio" />
+    <meta property="og:description"
+      content="Projects, resume, and contact info." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/og-image.jpg" />
+    <meta property="og:url" content="https://ryan4396.github.io/" />
 
-        <style>
+    <style>
       :root {
         --bg: #0b0c0f;
         --card: #14161a;
@@ -69,36 +69,38 @@
       .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) }
 
       /* Cards */
-      .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px }
+      .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; overflow: hidden }
       .card img.thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 10px; border: 1px solid var(--border) }
       .meta { color: var(--muted); font-size: 14px }
       .tag { display: inline-block; font-size: 12px; color: var(--muted); border: 1px solid var(--border); padding: 2px 8px; border-radius: 999px }
       .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
 
-      /* NEW: Make project cards align evenly and pin actions to the bottom */
+      /* Project cards */
       .project-card { display: flex; flex-direction: column; }
       .project-card .stack { display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; justify-content: flex-start }
-      .project-card .spacer { flex: 1 1 auto } /* pushes actions down */
+      .project-card .spacer { flex: 1 1 auto }
       .project-card h3 { margin: 0; line-height: 1.3; min-height: calc(1.3em * 2); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; } 
       .project-card .actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 4px }
       .project-card .actions .btn { width: 100%; justify-content: center; padding: 12px 14px }
 
-      /* Gallery */
-      .gallery { display: grid;
-    gap: 12px;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    }
+      /* Gallery (show whole image in square tiles) */
+      .gallery {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
+      .gallery img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+        background: color-mix(in oklab, var(--card) 85%, transparent);
+        padding: 6px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        display: block;
+      }
 
-    .gallery img {
-    width: 100%;
-    aspect-ratio: 1 / 1;        /* keep square tiles */
-    object-fit: contain;         /* show the whole image */
-    background: color-mix(in oklab, var(--card) 85%, transparent);
-    padding: 6px;                /* small frame so it doesn't touch edges */
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    }
-      /* Contact section fills the card with buttons */
+      /* Contact */
       .contact-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) }
       .contact-grid .btn { width: 100%; justify-content: center; align-items: center; gap: 8px; text-align: center; padding: 14px 16px }
       .contact-grid .btn i { font-size: 16px; line-height: 1 }
@@ -111,86 +113,111 @@
       .social i { font-size: 16px; line-height: 1 }
 
       .anchor { scroll-margin-top: 80px }
+
+      /* Fluid typography */
+      h2 { font-size: clamp(18px, 2.5vw, 22px); }
+      p, .meta { font-size: clamp(14px, 1.8vw, 16px); }
+
+      /* Media safety */
+      img, video { max-width: 100%; height: auto; display: block; }
+
+      /* Nav wraps on small screens */
+      @media (max-width: 700px) {
+        .nav { flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .links { justify-content: center; }
+      }
+
+      /* One-column projects, smaller gallery tiles, tighter section padding */
+      @media (max-width: 600px) {
+        .grid { grid-template-columns: 1fr; }
+        .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        section { padding: 24px 0; }
+      }
+
+      /* Compact buttons + container on very small screens */
+      @media (max-width: 480px) {
+        .btn { padding: 8px 10px; font-size: 14px; }
+        .container { width: 92%; }
+      }
     </style>
-    </head>
-    <body>
-        <header>
-            <div class="container nav">
-                <div class="brand">
-                    <img src="assets/favicon.jfif" alt="Avatar" />
-                    <span>Ryan Musgrove</span>
-                </div>
-                <nav class="links">
-                    <a href="#about">About</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#gallery">Gallery</a>
-                    <a href="#contact">Contact</a>
-                    <a class="btn" id="themeToggle" role="button" href="#">🌗
-                        Theme</a>
-                    <a class="btn primary"
-                        href="assets/Ryan Musgrove Resume.pdf" target="_blank"
-                        rel="noopener">⬇ Resume</a>
-                </nav>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <img src="assets/favicon.jfif" alt="Avatar" />
+          <span>Ryan Musgrove</span>
+        </div>
+        <nav class="links">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+          <a class="btn" id="themeToggle" role="button" href="#">🌗 Theme</a>
+          <a class="btn primary"
+            href="assets/Ryan Musgrove Resume.pdf" target="_blank"
+            rel="noopener">⬇ Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Hi, I’m Ryan</h1>
+        <p>I love learning about anything tech related especially topics
+          surrounding data engineering and finance.</p>
+        <div class="pillrow">
+          <span class="tag">Python</span><span
+            class="tag">SQL</span><span
+            class="tag">Snowflake</span><span
+            class="tag">DBT</span><span class="tag">AWS</span><span
+            class="tag">Applied Math</span>
+        </div>
+      </section>
+
+      <section id="about" class="anchor">
+        <h2>About</h2>
+        <div class="card">
+          <p>I’m an Analytics Engineer and Applied Mathematics student
+            with experience in AWS, Snowflake, DBT, and Python. I
+            enjoy establishing data pipelines that enable business
+            leaders to make data driven decisions.</p>
+          <p class="meta">Currently in the Austin-San Marcos area.</p>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="anchor">
+        <h2>Featured Projects</h2>
+        <div class="grid">
+          <!-- Project 1 -->
+          <article class="card project-card">
+            <img class="thumb"
+              src="assets/google_reviews_analyzer.png"
+              alt="Google Reviews analysis thumbnail" />
+            <div class="stack">
+              <h3>Google Business Reviews Analyzer</h3>
+              <p class="meta">Heuristic rules and feature
+                engineering with an Isolation Forest model to
+                estimate the probability reviews are fake.</p>
+              <div class="row">
+                <span class="tag">NLP &amp; ML</span><span
+                  class="tag">Isolation Forest</span><span
+                  class="tag">Python</span><span
+                  class="tag">APIs</span>
+              </div>
             </div>
-        </header>
-
-        <main class="container">
-            <section class="hero">
-                <h1>Hi, I’m Ryan</h1>
-                <p>I love learning about anything tech related especially topics
-                    surrounding data engineering and finance.</p>
-                <div class="pillrow">
-                    <span class="tag">Python</span><span
-                        class="tag">SQL</span><span
-                        class="tag">Snowflake</span><span
-                        class="tag">DBT</span><span class="tag">AWS</span><span
-                        class="tag">Applied Math</span>
-                </div>
-            </section>
-
-            <section id="about" class="anchor">
-                <h2>About</h2>
-                <div class="card">
-                    <p>I’m an Analytics Engineer and Applied Mathematics student
-                        with experience in AWS, Snowflake, DBT, and Python. I
-                        enjoy establishing data pipelines that enable business
-                        leaders to make data driven decisions.</p>
-                    <p class="meta">Currently in the Austin-San Marcos area.</p>
-                </div>
-            </section>
-
-            <!-- Projects -->
-            <section id="projects" class="anchor">
-                <h2>Featured Projects</h2>
-                <div class="grid">
-                    <!-- Project 1 -->
-                    <article class="card project-card">
-                        <img class="thumb"
-                            src="assets/google_reviews_analyzer.png"
-                            alt="Google Reviews analysis thumbnail" />
-                        <div class="stack">
-                            <h3>Google Business Reviews Analyzer</h3>
-                            <p class="meta">Heuristic rules and feature
-                                engineering with an Isolation Forest model to
-                                estimate the probability reviews are fake.</p>
-                            <div class="row">
-                                <span class="tag">NLP &amp; ML</span><span
-                                    class="tag">Isolation Forest</span><span
-                                    class="tag">Python</span><span
-                                    class="tag">APIs</span>
-                            </div>
-                        </div>
-                        <div class="spacer"></div>
-                        <div class="actions">
-                            <a class="btn"
-                                href="https://ryan-musgrove-reviews-analyzer.streamlit.app/"
-                                target="_blank" rel="noopener">Demo</a>
-                            <a class="btn"
-                                href="https://github.com/ryan4396/google-reviews-analyzer"
-                                target="_blank" rel="noopener">Code</a>
-                        </div>
-                    </article>
-                    <!-- 
+            <div class="spacer"></div>
+            <div class="actions">
+              <a class="btn"
+                href="https://ryan-musgrove-reviews-analyzer.streamlit.app/"
+                target="_blank" rel="noopener">Demo</a>
+              <a class="btn"
+                href="https://github.com/ryan4396/google-reviews-analyzer"
+                target="_blank" rel="noopener">Code</a>
+            </div>
+          </article>
+          
           <!-- 
           <article class="card project-card">
             <img class="thumb" src="assets/projects/utilization.jpg" alt="Black–Scholes calculator" />
@@ -224,67 +251,68 @@
             </div>
           </article>
         </div> -->
-                </section>
+        </div>
+      </section>
 
-                <section id="gallery" class="anchor">
-                    <h2>Gallery</h2>
-                    <p class="meta">Snapshots from projects, charts, dashboards,
-                        and a bit of life.</p>
-                    <div class="gallery">
-                        <img src="assets/google_reviews_analyzer.png"
-                            alt="Gallery image 1" />
-                        <img src="assets/RyanNYC.jpg" 
-                            alt="Gallery image 2" />
-                        <img src="assets/RyanColorado.jpg"
-                            alt="Gallery image 3" />
-                        <img src="assets/RyanGraduation2025.jpg"
-                            alt="Gallery image 4" />
-                    </div>
-                </section>
+      <section id="gallery" class="anchor">
+        <h2>Gallery</h2>
+        <p class="meta">Snapshots from projects, charts, dashboards,
+          and a bit of life.</p>
+        <div class="gallery">
+          <img src="assets/google_reviews_analyzer.png"
+            alt="Gallery image 1" />
+          <img src="assets/RyanNYC.jpg" 
+            alt="Gallery image 2" />
+          <img src="assets/RyanColorado.jpg"
+            alt="Gallery image 3" />
+          <img src="assets/RyanGraduation2025.jpg"
+            alt="Gallery image 4" />
+        </div>
+      </section>
 
-                <section id="contact" class="anchor">
-                    <h2>Contact</h2>
-                    <div class="card">
-                        <div class="contact-grid">
-                            <a class="btn"
-                                href="mailto:swimminryan@example.com"><i
-                                    class="fas fa-envelope"></i> Email</a>
-                            <a class="btn" target="_blank" rel="noopener"
-                                href="https://github.com/ryan4396"><i
-                                    class="fab fa-github"></i> GitHub</a>
-                            <a class="btn" target="_blank" rel="noopener"
-                                href="https://www.linkedin.com/in/ryan-musgrove-7b1636225/"><i
-                                    class="fab fa-linkedin"></i> LinkedIn</a>
-                            <a class="btn"
-                                href="assets/Ryan Musgrove Resume.pdf"
-                                target="_blank" rel="noopener"><i
-                                    class="fas fa-file-pdf"></i> Resume
-                                (PDF)</a>
-                        </div>
-                    </div>
-                </section>
-            </main>
+      <section id="contact" class="anchor">
+        <h2>Contact</h2>
+        <div class="card">
+          <div class="contact-grid">
+            <a class="btn"
+              href="mailto:swimminryan@example.com"><i
+                class="fas fa-envelope"></i> Email</a>
+            <a class="btn" target="_blank" rel="noopener"
+              href="https://github.com/ryan4396"><i
+                class="fab fa-github"></i> GitHub</a>
+            <a class="btn" target="_blank" rel="noopener"
+              href="https://www.linkedin.com/in/ryan-musgrove-7b1636225/"><i
+                class="fab fa-linkedin"></i> LinkedIn</a>
+            <a class="btn"
+              href="assets/Ryan Musgrove Resume.pdf"
+              target="_blank" rel="noopener"><i
+                class="fas fa-file-pdf"></i> Resume
+              (PDF)</a>
+          </div>
+        </div>
+      </section>
+    </main>
 
-            <footer>
-                <div class="container footrow">
-                    <div>© <span id="year"></span> Ryan Musgrove</div>
-                    <div class="social">
-                        <a aria-label="GitHub"
-                            href="https://github.com/ryan4396" target="_blank"
-                            rel="noopener"><i class="fab fa-github"></i>
-                            GitHub</a>
-                        <a aria-label="LinkedIn"
-                            href="https://www.linkedin.com/in/ryan-musgrove-7b1636225/"
-                            target="_blank" rel="noopener"><i
-                                class="fab fa-linkedin"></i> LinkedIn</a>
-                        <a aria-label="Email"
-                            href="mailto:swimminryan@example.com"><i
-                                class="fas fa-envelope"></i> Email</a>
-                    </div>
-                </div>
-            </footer>
+    <footer>
+      <div class="container footrow">
+        <div>© <span id="year"></span> Ryan Musgrove</div>
+        <div class="social">
+          <a aria-label="GitHub"
+            href="https://github.com/ryan4396" target="_blank"
+            rel="noopener"><i class="fab fa-github"></i>
+            GitHub</a>
+          <a aria-label="LinkedIn"
+            href="https://www.linkedin.com/in/ryan-musgrove-7b1636225/"
+            target="_blank" rel="noopener"><i
+              class="fab fa-linkedin"></i> LinkedIn</a>
+          <a aria-label="Email"
+            href="mailto:swimminryan@example.com"><i
+              class="fas fa-envelope"></i> Email</a>
+        </div>
+      </div>
+    </footer>
 
-            <script>
+    <script>
       // year + theme toggle
       document.getElementById('year').textContent = new Date().getFullYear();
       const root = document.documentElement;
@@ -297,5 +325,5 @@
         localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
       });
     </script>
-        </body>
-    </html>
+  </body>
+</html>
